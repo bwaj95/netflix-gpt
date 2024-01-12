@@ -1,9 +1,39 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
+import { validateSignInData, validateSignUpData } from "../utils/validate";
 
 const Login = () => {
   const [isSignInForm, setIsSignInForm] = useState(true);
+  const [formDataError, setFormDataError] = useState(null);
+
+  const nameRef = useRef(null);
+  const emailRef = useRef(null);
+  const passwordRef = useRef(null);
 
   const toggleSignInForm = () => setIsSignInForm(!isSignInForm);
+
+  const handleFormSubmit = (e) => {
+    e.preventDefault();
+
+    console.log("Form submit called");
+
+    let isValid;
+
+    if (isSignInForm) {
+      isValid = validateSignInData(
+        emailRef.current.value,
+        passwordRef.current.value
+      );
+    } else {
+      isValid = validateSignUpData(
+        nameRef.current.value,
+        emailRef.current.value,
+        passwordRef.current.value
+      );
+    }
+
+    setFormDataError(isValid);
+    console.log(isValid);
+  };
 
   return (
     <div className={` w-screen h-screen  overflow-x-hidden relative `}>
@@ -37,30 +67,40 @@ const Login = () => {
                   {!isSignInForm && (
                     <input
                       type="text"
+                      ref={nameRef}
                       placeholder="Full Name"
-                      className=" w-full appearance-none p-4 bg-[#333] placeholder:text-white placeholder:opacity-6 placeholder:font-thin rounded-md focus:border border-b-yellow-300 border-b-2 "
+                      className=" w-full appearance-none p-4 bg-[#333] placeholder:text-gray-300  placeholder:font-thin rounded-md focus:border border-b-yellow-300 border-b-2 text-white  "
                     />
                   )}
                   <input
                     type="text"
+                    ref={emailRef}
                     placeholder="Email or Phone Number"
-                    className=" w-full appearance-none p-4 bg-[#333] placeholder:text-white placeholder:opacity-6 placeholder:font-thin rounded-md focus:border border-b-yellow-300 border-b-2 "
+                    className=" w-full appearance-none p-4 bg-[#333] placeholder:text-gray-300  placeholder:font-thin rounded-md focus:border border-b-yellow-300 border-b-2 text-white  "
                   />
                   <input
                     type="password"
+                    ref={passwordRef}
                     placeholder="Password"
-                    className=" w-full appearance-none p-4 bg-[#333] placeholder:text-white placeholder:opacity-6 placeholder:font-thin rounded-md focus:border border-b-yellow-300 border-b-2 "
+                    className=" w-full appearance-none p-4 bg-[#333] placeholder:text-gray-300  placeholder:font-thin rounded-md focus:border border-b-yellow-300 border-b-2 text-white  "
                   />
                 </div>
 
-                <button className=" text-white font-semibold  w-full bg-red-600 rounded-md py-3 mt-16 ">
+                <p className=" my-2 text-red-500 font-semibold ">
+                  {formDataError}
+                </p>
+
+                <button
+                  onClick={(e) => handleFormSubmit(e)}
+                  className=" text-white font-semibold  w-full bg-red-600 rounded-md py-3 mt-16 "
+                >
                   {isSignInForm ? "Sign In" : "Sign Up"}
                 </button>
                 <div className=" flex justify-between items-center my-2 ">
                   <p className=" flex items-center font-thin text-sm text-white ">
                     <input
                       type="checkbox"
-                      className=" appearance-none w-3 h-3 rounded-sm bg-gray-100 mr-2 "
+                      className="  w-3 h-3 rounded-sm bg-gray-100 mr-2  "
                     />
                     Remember Me
                   </p>

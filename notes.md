@@ -6,6 +6,8 @@
 - Header
 - Login Page
 - Sign In, Sign Up form
+- Form validation
+- useRef Hook
 
 # Features
 
@@ -35,3 +37,7 @@
 3. create a router using createBrowserRouter and provide it using RouteProvider
 4. Create a login page.
 5. Create a form and toggle form state between Sign In / Sign Up using useState.
+6. Form validation.
+   - using useRef hook, get the input email and password.
+   - can be done using useState also.
+   - to validate write funcitons in utils folder.
