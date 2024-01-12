@@ -8,6 +8,9 @@
 - Sign In, Sign Up form
 - Form validation
 - useRef Hook
+- Firebase setup
+- Deploying app to firebaes hosting (pending)
+- Create signup, signin functions using firebase
 
 # Features
 
@@ -41,3 +44,7 @@
    - using useRef hook, get the input email and password.
    - can be done using useState also.
    - to validate write funcitons in utils folder.
+7. Setup firebase on the firebase websitre.
+8. Optional - Deploy in firebase.
+9. From firebase docs, add signin. signup functionality in login form.
+10. Make redux store to handle signed in user.

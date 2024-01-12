@@ -1,9 +1,20 @@
 import { useRef, useState } from "react";
 import { validateSignInData, validateSignUpData } from "../utils/validate";
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  updateProfile,
+} from "firebase/auth";
+import { auth } from "../utils/firebase";
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { addUser } from "../utils/userSlice";
 
 const Login = () => {
   const [isSignInForm, setIsSignInForm] = useState(true);
   const [formDataError, setFormDataError] = useState(null);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const nameRef = useRef(null);
   const emailRef = useRef(null);
@@ -33,6 +44,80 @@ const Login = () => {
 
     setFormDataError(isValid);
     console.log(isValid);
+
+    if (isValid !== null) return;
+
+    if (!isSignInForm) {
+      createUserWithEmailAndPassword(
+        auth,
+        emailRef.current.value,
+        passwordRef.current.value
+      )
+        .then((userCredential) => {
+          // Signed up
+          const user = userCredential.user;
+          console.log(user);
+
+          updateProfile(user, {
+            displayName: nameRef.current.value,
+            photoURL:
+              "https://static.vecteezy.com/system/resources/previews/019/879/198/non_2x/user-icon-on-transparent-background-free-png.png",
+          })
+            .then(() => {
+              const { uid, email, displayName, photoURL } = user;
+
+              dispatch(
+                addUser({
+                  uid,
+                  email,
+                  displayName,
+                  photoURL,
+                })
+              );
+              navigate("/browse");
+            })
+            .catch((error) => {
+              setFormDataError(error.code + " - " + error.message);
+            });
+        })
+        .catch((error) => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+
+          console.log(errorCode + " - " + errorMessage);
+          setFormDataError(errorCode + " - " + errorMessage);
+        });
+    } else {
+      signInWithEmailAndPassword(
+        auth,
+        emailRef.current.value,
+        passwordRef.current.value
+      )
+        .then((userCredential) => {
+          // Signed in
+          const user = userCredential.user;
+          console.log(user);
+
+          const { uid, email, displayName, photoURL } = user;
+
+          dispatch(
+            addUser({
+              uid,
+              email,
+              displayName,
+              photoURL,
+            })
+          );
+          navigate("/browse");
+        })
+        .catch((error) => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+
+          console.log(errorCode + " - " + errorMessage);
+          setFormDataError(errorCode + " - " + errorMessage);
+        });
+    }
   };
 
   return (
