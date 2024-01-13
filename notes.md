@@ -10,7 +10,12 @@
 - useRef Hook
 - Firebase setup
 - Deploying app to firebaes hosting (pending)
-- Create signup, signin functions using firebase
+- Create signup, signin functions using Firebase API
+- Implemented Sign-Out using Firebase API
+- Bug Fix: Auth check logic moved to Header component.
+- Register app on TMDB
+- Use TMDB API to fetch "Now Playing" movies
+- Embed YT video in MainContainer and autoplay. (write CSS also)
 
 # Features
 
@@ -48,3 +53,21 @@
 8. Optional - Deploy in firebase.
 9. From firebase docs, add signin. signup functionality in login form.
 10. Make redux store to handle signed in user.
+11. Use Firebase APIs to do auth flow of users.
+12. onAuthStateChanged() API used in header component
+    - to detect user on every page load.
+    - should have been at the top just below the RouteProvider.
+    - But added to header since it will render on every page.
+    - onAuthStateChanged() returns an unsubscribe callback funtion
+    - use the cleanup of useEffect to remove this eventlistener.
+13. TMDB API is needed for fetching movies and other related details.
+    - Register app on API website.
+    - Get read access token.
+14. In BrowsePage useEffect to fetch "Now Playing" movies.
+    - Use the API by the same name.
+    - Extract the logic into custom hook "useNowPlaying"
+    - update store with movies data.
+15. Parse video list and get one main video for banner trailer.
+    - Extract this logic also to custom hook "useMovieTrailer"
+    - update store with trailer data
+16. Embed YT video by key and play it in banner. Write CSS.

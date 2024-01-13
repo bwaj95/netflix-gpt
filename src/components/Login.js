@@ -6,14 +6,16 @@ import {
   updateProfile,
 } from "firebase/auth";
 import { auth } from "../utils/firebase";
-import { useNavigate } from "react-router-dom";
+
 import { useDispatch } from "react-redux";
 import { addUser } from "../utils/userSlice";
+import Header from "./Header";
+import { USER_AVATAR_DEFAULT } from "../utils/constants";
 
 const Login = () => {
   const [isSignInForm, setIsSignInForm] = useState(true);
   const [formDataError, setFormDataError] = useState(null);
-  const navigate = useNavigate();
+
   const dispatch = useDispatch();
 
   const nameRef = useRef(null);
@@ -60,8 +62,7 @@ const Login = () => {
 
           updateProfile(user, {
             displayName: nameRef.current.value,
-            photoURL:
-              "https://static.vecteezy.com/system/resources/previews/019/879/198/non_2x/user-icon-on-transparent-background-free-png.png",
+            photoURL: USER_AVATAR_DEFAULT,
           })
             .then(() => {
               const { uid, email, displayName, photoURL } = user;
@@ -74,7 +75,6 @@ const Login = () => {
                   photoURL,
                 })
               );
-              navigate("/browse");
             })
             .catch((error) => {
               setFormDataError(error.code + " - " + error.message);
@@ -108,7 +108,6 @@ const Login = () => {
               photoURL,
             })
           );
-          navigate("/browse");
         })
         .catch((error) => {
           const errorCode = error.code;
@@ -130,13 +129,7 @@ const Login = () => {
         />
 
         <div className=" w-full h-full backdrop-brightness-50 absolute top-0 left-0 ">
-          <div className=" w-full h-24 bg-gradient-to-b from-black ">
-            <img
-              src="https://cdn.cookielaw.org/logos/dd6b162f-1a32-456a-9cfe-897231c7763c/4345ea78-053c-46d2-b11e-09adaef973dc/Netflix_Logo_PMS.png"
-              alt="logo"
-              className=" h-full w-auto ml-8 "
-            />
-          </div>
+          <Header />
 
           {/* Form Container */}
           <section className=" w-[500px] h-[700px] mx-auto bg-black bg-opacity-80 border-white  ">
