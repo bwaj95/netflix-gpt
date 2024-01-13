@@ -8,14 +8,16 @@ const MainContainer = () => {
   if (!movies) return;
 
   const mainMovie = movies[0];
-  console.log(mainMovie);
+  // console.log(mainMovie);
 
   const { original_title, overview, id } = mainMovie;
 
   return (
     <div className=" relative overflow-x-hidden w-full min-h-[95vh] ">
       <VideoBackground movieId={id} />
+      {/* <div className=" w-full min-h-[95vh]  "> */}
       <VideoDetails title={original_title} overview={overview} />
+      {/* </div> */}
     </div>
   );
 };

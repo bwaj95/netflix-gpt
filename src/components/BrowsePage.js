@@ -2,13 +2,15 @@ import Header from "./Header";
 import useNowPlayingMovies from "../hooks/useNowPlayingMovies";
 import MainContainer from "./MainContainer";
 import SecondaryContainer from "./SecondaryContainer";
+import usePopularMovies from "../hooks/usePopularMovies";
 
 const BrowsePage = () => {
   useNowPlayingMovies();
+  usePopularMovies();
 
   return (
-    <div className=" w-screen h-full relative ">
-      <div className=" w-full absolute top-0 left-0 right-0 ">
+    <div className=" w-screen h-full relative  ">
+      <div className=" w-full absolute top-0 left-0 right-0 z-[9999] ">
         <Header />
       </div>
       {/**

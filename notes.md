@@ -16,6 +16,9 @@
 - Register app on TMDB
 - Use TMDB API to fetch "Now Playing" movies
 - Embed YT video in MainContainer and autoplay. (write CSS also)
+- Planning SecondaryContainer
+- Fetched PopularMovies and Now Playing movies using custom hooks.
+- Displayed in MoviesList and MovieCard component.
 
 # Features
 

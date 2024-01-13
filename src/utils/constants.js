@@ -15,3 +15,5 @@ export const TMDB_FETCH_OPTIONS = {
     Authorization: `Bearer ${TMDB_READ_ACCESS_TOKEN}`,
   },
 };
+
+export const TMDB_IMAGE_PATH_500 = "https://image.tmdb.org/t/p/w500";
