@@ -19,6 +19,8 @@
 - Planning SecondaryContainer
 - Fetched PopularMovies and Now Playing movies using custom hooks.
 - Displayed in MoviesList and MovieCard component.
+- GptSearchPage, GptSearchBar, GptMovieSuggestions.
+- Support for multi-language feature in the app.
 
 # Features
 
@@ -74,3 +76,10 @@
     - Extract this logic also to custom hook "useMovieTrailer"
     - update store with trailer data
 16. Embed YT video by key and play it in banner. Write CSS.
+17. Write GPTSearch component. Toggle using button in header.
+18. Write slice for handling GPT data.
+19. Multi-language feature:
+    - create an object of word->translation for each language.
+    - create slice for app config language
+    - dispatch action when language changed
+    - pick word as per language and render in component

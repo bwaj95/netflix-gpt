@@ -5,12 +5,18 @@ import { useNavigate } from "react-router-dom";
 import { onAuthStateChanged, signOut } from "firebase/auth";
 import { auth } from "../utils/firebase";
 import { addUser, removeUser } from "../utils/userSlice";
-import { LOGO_URL } from "../utils/constants";
+import { LOGO_URL, SUPPORTED_LANGUAGES } from "../utils/constants";
+import { toggleGptSearch } from "../utils/gptSlice";
+import { changeLanguage } from "../utils/configSlice";
+
+import { MdLanguage } from "react-icons/md";
 
 const Header = () => {
   const user = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const showGptSearch = useSelector((state) => state.gpt.showGptSearch);
 
   const handleSignOut = () => {
     signOut(auth)
@@ -61,6 +67,14 @@ const Header = () => {
     return () => unsubscribe();
   }, []);
 
+  const handleGptSearchClick = () => {
+    dispatch(toggleGptSearch());
+  };
+
+  const handleLanguageChange = (event) => {
+    dispatch(changeLanguage(event.target.value));
+  };
+
   return (
     // <div className=" w-screen h-full overflow-x-hidden ">
     <div className=" w-full h-24 bg-gradient-to-b from-black flex justify-between px-6 z-50 ">
@@ -68,6 +82,31 @@ const Header = () => {
 
       {user && (
         <div className=" flex gap-x-2 items-center ">
+          {showGptSearch && (
+            <div className=" flex items-center gap-x-1 bg-gray-900 text-white py-1 px-2 ">
+              <MdLanguage className=" w-8 h-8 " />
+
+              <select
+                name="app-language"
+                id="app-language"
+                className=" bg-gray-900 text-white "
+                onChange={(e) => handleLanguageChange(e)}
+              >
+                {SUPPORTED_LANGUAGES.map((language) => (
+                  <option key={language.identifier} value={language.identifier}>
+                    {language.name}
+                  </option>
+                ))}
+              </select>
+            </div>
+          )}
+
+          <button
+            className=" text-white bg-blue-500 hover:bg-blue-600 rounded-lg mx-4 my-1 px-4 py-2  "
+            onClick={handleGptSearchClick}
+          >
+            {showGptSearch ? "Home Page" : "GptSearch"}
+          </button>
           <img src={user.photoURL} alt="user-icon" className=" w-16 h-10 " />
           <button
             onClick={handleSignOut}

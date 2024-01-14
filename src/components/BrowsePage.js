@@ -3,10 +3,14 @@ import useNowPlayingMovies from "../hooks/useNowPlayingMovies";
 import MainContainer from "./MainContainer";
 import SecondaryContainer from "./SecondaryContainer";
 import usePopularMovies from "../hooks/usePopularMovies";
+import { useSelector } from "react-redux";
+import GptSearch from "./GptSearch";
 
 const BrowsePage = () => {
   useNowPlayingMovies();
   usePopularMovies();
+
+  const showGptSearch = useSelector((state) => state.gpt.showGptSearch);
 
   return (
     <div className=" w-screen h-full relative  ">
@@ -22,8 +26,15 @@ const BrowsePage = () => {
        *  - MovieList * N
        *  - MovieCard * M
        */}
-      <MainContainer />
-      <SecondaryContainer />
+
+      {showGptSearch ? (
+        <GptSearch />
+      ) : (
+        <>
+          <MainContainer />
+          <SecondaryContainer />
+        </>
+      )}
     </div>
   );
 };
