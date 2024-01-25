@@ -83,3 +83,5 @@
     - create slice for app config language
     - dispatch action when language changed
     - pick word as per language and render in component
+20. Fixed CSS for Browse Page and MovieList components.
+21. Implemented custom hooks - useTopRatedMovies and useUpcomingMovies
