@@ -2,9 +2,9 @@ import { FaPlay } from "react-icons/fa";
 import { CiCircleInfo } from "react-icons/ci";
 const VideoDetails = ({ title, overview }) => {
   return (
-    <div className=" pt-36 px-12 absolute top-[25%] left-[5%]  ">
+    <div className=" pt-36 px-12 absolute top-[12%] left-[5%]  ">
       <h1 className=" font-bold text-6xl text-white ">{title}</h1>
-      <p className=" py-6 text-lg w-1/4 text-white ">{overview}</p>
+      <p className=" py-6 text-lg w-[30%] h-[25%] text-white ">{overview}</p>
 
       <div className="flex items-center gap-x-4">
         <button className="flex items-center gap-x-2 bg-white hover:bg-opacity-85 rounded-lg py-4 px-12  cursor-pointer transition-all duration-200 ">

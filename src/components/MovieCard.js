@@ -6,7 +6,7 @@ const MovieCard = ({ posterPath }) => {
       <img
         src={TMDB_IMAGE_PATH_500 + posterPath}
         alt="poster"
-        className=" w-48  "
+        className=" h-56 my-auto bg-gray-50 rounded-md "
       />
     </div>
   );
