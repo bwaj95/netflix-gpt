@@ -3,10 +3,14 @@ import useNowPlayingMovies from "../hooks/useNowPlayingMovies";
 import MainContainer from "./MainContainer";
 import SecondaryContainer from "./SecondaryContainer";
 import usePopularMovies from "../hooks/usePopularMovies";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import GptSearch from "./GptSearch";
 import useTopRatedMovies from "../hooks/useTopRatedMovies";
 import useUpcomingMovies from "../hooks/useUpcomingMovies";
+import { useEffect } from "react";
+import { removeGptSliceData } from "../utils/gptSlice";
+import { removeMovieSliceData } from "../utils/moviesSlice";
+import { removeConfigSliceData } from "../utils/configSlice";
 
 const BrowsePage = () => {
   useNowPlayingMovies();
@@ -15,6 +19,16 @@ const BrowsePage = () => {
   useUpcomingMovies();
 
   const showGptSearch = useSelector((state) => state.gpt.showGptSearch);
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    return () => {
+      dispatch(removeGptSliceData());
+      dispatch(removeMovieSliceData());
+      dispatch(removeConfigSliceData());
+    };
+  }, []);
 
   return (
     <div className=" max-w-screen h-fit relative   ">

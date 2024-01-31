@@ -9,7 +9,7 @@ const SecondaryContainer = () => {
   // console.log(movies);
 
   return (
-    <div className=" w-full   flex flex-col relative bg-black min-h-min mb-16 ">
+    <div className=" w-full   flex flex-col relative bg-black min-h-min mb-16 -mt-80 md:-mt-40 lg:mt-0  ">
       <div className=" px-8 mt-[-8%] w-full ">
         {movies.nowPlayingMovies && (
           <MovieList title={"Now Playing"} movies={movies.nowPlayingMovies} />

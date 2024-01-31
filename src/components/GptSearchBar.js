@@ -32,50 +32,54 @@ const GptSearchBar = () => {
   };
 
   const handleGptQuerySearch = async () => {
-    // if (!gptSearchQueryRef.current.value) return;
+    try {
+      // if (!gptSearchQueryRef.current.value) return;
 
-    // const query = `Act as a movire recommendation system and suggest some movies for the query: ${gptSearchQueryRef.current.value}.
-    // only give me names of at max 5 movies, put in an array like the example given ["movie1","movie2","movie3","movie4","movie5",]
-    // `;
+      // const query = `Act as a movie recommendation system and suggest some movies for the query: ${gptSearchQueryRef.current.value}.
+      // only give me names of at max 5 movies, put in an array like the example given ["movie1","movie2","movie3","movie4","movie5"]
+      // `;
 
-    // const searchResults = await openai.chat.completions.create({
-    //   messages: [{ role: "user", content: query }],
-    //   model: "gpt-3.5-turbo",
-    // });
+      // const searchResults = await openai.chat.completions.create({
+      //   messages: [{ role: "user", content: query }],
+      //   model: "gpt-3.5-turbo",
+      // });
 
-    // console.log(searchResults);
+      // console.log("OpenAI search query results------");
+      // console.log(searchResults);
 
-    const gptResults = [
-      "Leo (Bloody Sweet)",
-      "The Godfather",
-      "Nayakan",
-      "Vikram",
-      "Donnie Brasco",
-    ];
+      const gptResults = [
+        "Leo (Bloody Sweet)",
+        "The Godfather",
+        "Nayakan",
+        "Vikram",
+        "Donnie Brasco",
+      ];
 
-    const movieDataPromises = gptResults.map((movie) => tmdbSearchMovie(movie));
+      const movieDataPromises = gptResults.map((movie) =>
+        tmdbSearchMovie(movie)
+      );
 
-    const movieData = await Promise.all(movieDataPromises);
+      const movieData = await Promise.all(movieDataPromises);
 
-    const movieDataFiltered = movieData.map((data, index) => {
-      return data.filter((movie) => movie.title === gptResults[index]);
-    });
+      console.log("All Movie Data");
+      console.log(movieData);
 
-    console.log("All Movie Data");
-    console.log(movieDataFiltered);
-
-    dispatch(
-      addGptMovieResult({
-        movieNames: gptResults,
-        movieResults: movieDataFiltered,
-      })
-    );
+      dispatch(
+        addGptMovieResult({
+          movieNames: gptResults,
+          movieResults: movieData,
+        })
+      );
+    } catch (error) {
+      console.log("Error occurred while using OpenAI API.");
+      console.error(error);
+    }
   };
 
   return (
-    <div className=" absolute top-[150px] left-[10%] right-[10%] mb-24 z-[1] ">
+    <div className=" w-full mt-32  lg:mt-[10%] mb-24 z-[1]  ">
       <form
-        className=" w-[50%] h-16 mx-auto  flex items-center justify-center gap-x-4 "
+        className=" w-[80%] lg:w-[50%] h-16 mx-auto  flex items-center justify-center gap-x-4 "
         onSubmit={(e) => e.preventDefault()}
       >
         <input

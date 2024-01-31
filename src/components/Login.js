@@ -122,13 +122,17 @@ const Login = () => {
   return (
     <div className={` w-screen h-screen  overflow-x-hidden relative `}>
       <div className=" w-full h-full relative ">
-        <img src={NETFLIX_BG_BANNER} alt="bg-banner" className="  " />
+        <img
+          src={NETFLIX_BG_BANNER}
+          alt="bg-banner"
+          className=" w-full h-full object-cover bg-cover  "
+        />
 
         <div className=" w-full h-full backdrop-brightness-50 absolute top-0 left-0 ">
           <Header />
 
           {/* Form Container */}
-          <section className=" w-[500px] h-[700px] mx-auto bg-black bg-opacity-80 border-white  ">
+          <section className=" w-full md:w-[500px] h-[700px] mx-auto bg-black bg-opacity-80 border-white  ">
             <div className=" w-3/4 flex flex-col pt-12 px mx-auto  ">
               <p className=" text-white text-4xl font-semibold ">
                 {isSignInForm ? "Sign In" : "Sign Up"}

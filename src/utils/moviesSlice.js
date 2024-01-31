@@ -27,6 +27,9 @@ const moviesSlice = createSlice({
     addTrailerData: (state, action) => {
       state.trailer = action.payload;
     },
+    removeMovieSliceData: (state) => {
+      return initialState;
+    },
   },
 });
 
@@ -36,6 +39,7 @@ export const {
   addPopularMovies,
   addTopRatedMovies,
   addUpcomingMovies,
+  removeMovieSliceData,
 } = moviesSlice.actions;
 
 export default moviesSlice.reducer;

@@ -6,10 +6,11 @@ import { onAuthStateChanged, signOut } from "firebase/auth";
 import { auth } from "../utils/firebase";
 import { addUser, removeUser } from "../utils/userSlice";
 import { LOGO_URL, SUPPORTED_LANGUAGES } from "../utils/constants";
-import { toggleGptSearch } from "../utils/gptSlice";
-import { changeLanguage } from "../utils/configSlice";
+import { removeGptSliceData, toggleGptSearch } from "../utils/gptSlice";
+import { changeLanguage, removeConfigSliceData } from "../utils/configSlice";
 
 import { MdLanguage } from "react-icons/md";
+import { removeMovieSliceData } from "../utils/moviesSlice";
 
 const Header = () => {
   const user = useSelector((state) => state.user);
@@ -60,6 +61,7 @@ const Header = () => {
         navigate("/browse");
       } else {
         dispatch(removeUser());
+
         navigate("/");
       }
     });
@@ -107,10 +109,14 @@ const Header = () => {
           >
             {showGptSearch ? "Home Page" : "GptSearch"}
           </button>
-          <img src={user.photoURL} alt="user-icon" className=" w-16 h-10 " />
+          <img
+            src={user.photoURL}
+            alt="user-icon"
+            className=" w-16 h-10 hidden md:block "
+          />
           <button
             onClick={handleSignOut}
-            className=" bg-red-500 rounded-md text-white font-bold text-lg py-2 px-4 "
+            className=" bg-red-500 rounded-md text-white font-bold text-lg py-2 px-4 hidden md:block "
           >
             Sign Out
           </button>
