@@ -21,7 +21,7 @@ const GptSearch = () => {
       />
       <div className=" w-full mx-auto px-2 h-screen flex flex-col  mt-8  ">
         <GptSearchBar />
-        <div className=" w-full mx-auto mb-3 min-h-[100%] sm:min-h-max overflow-y-scroll flex flex-col backdrop-brightness-50 rounded-lg border border-slate-400 ">
+        <div className=" w-full mx-auto mb-3 min-h-[100%] sm:min-h-max overflow-y-scroll flex flex-col backdrop-brightness-50 rounded-lg ">
           <GptMovieSuggestions />
         </div>
       </div>

@@ -3,7 +3,7 @@ import VideoBackground from "./VideoBackground";
 import VideoDetails from "./VideoDetails";
 
 const MainContainer = () => {
-  const movies = useSelector((state) => state.movies?.nowPlayingMovies);
+  const movies = useSelector((state) => state.movies?.nowPlayingMovies?.movies);
 
   if (!movies) return;
 

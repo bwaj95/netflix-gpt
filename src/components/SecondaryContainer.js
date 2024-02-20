@@ -1,19 +1,40 @@
 import { useSelector } from "react-redux";
 import MovieList from "./MovieList";
+import { selectNowPlayingMovies } from "../utils/moviesSlice";
+import Shimmer from "./Shimmer/Shimmer";
 
 const SecondaryContainer = () => {
   const movies = useSelector((state) => state.movies);
 
+  const nowPlayingMovies = useSelector(selectNowPlayingMovies);
+
   if (!movies.nowPlayingMovies) return null;
 
-  // console.log(movies);
+  let nowPlayingMoviesList;
+  if (
+    nowPlayingMovies.status === "idle" ||
+    nowPlayingMovies.status === "loading"
+  ) {
+    nowPlayingMoviesList = (
+      <div className="  my-4 ">
+        <Shimmer />
+      </div>
+    );
+  } else if (nowPlayingMovies.status === "succeeded") {
+    nowPlayingMoviesList = (
+      <MovieList title={"Now Playing"} movies={nowPlayingMovies.movies} />
+    );
+  }
 
   return (
     <div className=" w-full   flex flex-col relative bg-black min-h-min mb-16 -mt-80 md:-mt-40 lg:mt-0  ">
       <div className=" px-8 mt-[-8%] w-full ">
-        {movies.nowPlayingMovies && (
+        {/* {movies.nowPlayingMovies && (
           <MovieList title={"Now Playing"} movies={movies.nowPlayingMovies} />
-        )}
+        )} */}
+
+        {nowPlayingMoviesList}
+
         {movies.popularMovies && (
           <MovieList title={"Popular"} movies={movies.popularMovies} />
         )}
